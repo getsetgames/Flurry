@@ -1,0 +1,21 @@
+{
+	"FileVersion" : 3,
+	
+	"FriendlyName" : "Flurry",
+	"Version" : 1,
+	"VersionName" : "1.0",
+	"CreatedBy" : "Get Set Games Inc.",
+	"CreatedByURL" : "https://github.com/getsetgames/Flurry",
+	"EngineVersion" : "4.7.0",
+	"Description" : "This plugin adds support for Flurry Analytics.",
+	"Category" : "Analytics",
+	"EnabledByDefault" : false,
+	
+	"Modules" :
+	[
+		{
+			"Name" : "Flurry",
+			"Type" : "Runtime"
+		}
+	]
+}
