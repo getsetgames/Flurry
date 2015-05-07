@@ -46,14 +46,18 @@ bool ValidateParams(FString Function, FString Event, TArray<FString> ParamKeys, 
 void UFlurryFunctions::FlurryStartSession(FString APIKey)
 {
 #if PLATFORM_IOS
-	[Flurry startSession:APIKey.GetNSString()];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[Flurry startSession:APIKey.GetNSString()];
+	});
 #endif
 }
 
 void UFlurryFunctions::FlurryLogEvent(FString Event, bool Timed)
 {
 #if PLATFORM_IOS
-	[Flurry logEvent:Event.GetNSString() timed:Timed];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[Flurry logEvent:Event.GetNSString() timed:Timed];
+	});
 #endif
 }
 
@@ -61,7 +65,9 @@ void UFlurryFunctions::FlurryLogEventWithParam(FString Event, FString ParamKey, 
 {
 #if PLATFORM_IOS
 	NSDictionary* Params = [NSDictionary dictionaryWithObject:ParamValue.GetNSString() forKey:ParamKey.GetNSString()];
-	[Flurry logEvent:Event.GetNSString() withParameters:Params timed:Timed];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[Flurry logEvent:Event.GetNSString() withParameters:Params timed:Timed];
+	});
 #endif
 }
 
@@ -72,7 +78,9 @@ void UFlurryFunctions::FlurryLogEventWithParams(FString Event, TArray<FString> P
 
 #if PLATFORM_IOS
 	NSDictionary* Params = [NSDictionary dictionaryWithObjects:GetNSStringArray(ParamValues) forKeys:GetNSStringArray(ParamKeys)];
-	[Flurry logEvent:Event.GetNSString() withParameters:Params timed:Timed];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[Flurry logEvent:Event.GetNSString() withParameters:Params timed:Timed];
+	});
 #endif
 }
 
@@ -83,13 +91,17 @@ void UFlurryFunctions::FlurryEndTimedEvent(FString Event, TArray<FString> ParamK
 	
 #if PLATFORM_IOS
 	NSDictionary* Params = [NSDictionary dictionaryWithObjects:GetNSStringArray(ParamValues) forKeys:GetNSStringArray(ParamKeys)];
-	[Flurry endTimedEvent:Event.GetNSString() withParameters:Params];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[Flurry endTimedEvent:Event.GetNSString() withParameters:Params];
+	});
 #endif
 }
 
 void UFlurryFunctions::FlurrySetDebugLogEnabled(bool Enabled)
 {
 #if PLATFORM_IOS
-	[Flurry setDebugLogEnabled:Enabled];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[Flurry setDebugLogEnabled:Enabled];
+	});
 #endif
 }
