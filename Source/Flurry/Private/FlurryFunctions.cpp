@@ -84,7 +84,26 @@ void UFlurryFunctions::FlurryLogEventWithParams(FString Event, TArray<FString> P
 #endif
 }
 
-void UFlurryFunctions::FlurryEndTimedEvent(FString Event, TArray<FString> ParamKeys, TArray<FString> ParamValues)
+void UFlurryFunctions::FlurryEndTimedEvent(FString Event)
+{
+#if PLATFORM_IOS
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		[Flurry endTimedEvent:Event.GetNSString() withParameters:nil];
+	});
+#endif
+}
+
+void UFlurryFunctions::FlurryEndTimedEventWithParam(FString Event, FString ParamKey, FString ParamValue)
+{
+#if PLATFORM_IOS
+	NSDictionary* Params = [NSDictionary dictionaryWithObject:ParamValue.GetNSString() forKey:ParamKey.GetNSString()];
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		[Flurry endTimedEvent:Event.GetNSString() withParameters:Params];
+	});
+#endif
+}
+
+void UFlurryFunctions::FlurryEndTimedEventWithParams(FString Event, TArray<FString> ParamKeys, TArray<FString> ParamValues)
 {
 	if (ValidateParams("FlurryEndTimedEvent", Event, ParamKeys, ParamValues) == false)
 		return;

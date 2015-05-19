@@ -26,8 +26,14 @@ public:
 	static void FlurryLogEventWithParams(FString Event, TArray<FString> ParamKeys, TArray<FString> ParamValues, bool Timed);
 	
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "flurry analytics"), Category = "Flurry")
-	static void FlurryEndTimedEvent(FString Event, TArray<FString> ParamKeys, TArray<FString> ParamValues);
-	
+	static void FlurryEndTimedEvent(FString Event);
+
+	UFUNCTION(BlueprintCallable, meta = (Keywords = "flurry analytics"), Category = "Flurry")
+	static void FlurryEndTimedEventWithParam(FString Event, FString ParamKey, FString ParamValue);
+
+	UFUNCTION(BlueprintCallable, meta = (Keywords = "flurry analytics"), Category = "Flurry")
+	static void FlurryEndTimedEventWithParams(FString Event, TArray<FString> ParamKeys, TArray<FString> ParamValues);
+
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "flurry analytics"), Category = "Flurry")
 	static void FlurrySetDebugLogEnabled(bool Enabled);
 };
