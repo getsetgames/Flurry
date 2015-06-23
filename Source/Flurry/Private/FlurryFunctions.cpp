@@ -46,7 +46,7 @@ bool ValidateParams(FString Function, FString Event, TArray<FString> ParamKeys, 
 void UFlurryFunctions::FlurryStartSession(FString APIKey)
 {
 #if PLATFORM_IOS
-	dispatch_sync(dispatch_get_main_queue(), ^{
+	dispatch_async(dispatch_get_main_queue(), ^{
 		[Flurry startSession:APIKey.GetNSString()];
 	});
 #endif
@@ -55,7 +55,7 @@ void UFlurryFunctions::FlurryStartSession(FString APIKey)
 void UFlurryFunctions::FlurryLogEvent(FString Event, bool Timed)
 {
 #if PLATFORM_IOS
-	dispatch_sync(dispatch_get_main_queue(), ^{
+	dispatch_async(dispatch_get_main_queue(), ^{
 		[Flurry logEvent:Event.GetNSString() timed:Timed];
 	});
 #endif
@@ -65,7 +65,7 @@ void UFlurryFunctions::FlurryLogEventWithParam(FString Event, FString ParamKey, 
 {
 #if PLATFORM_IOS
 	NSDictionary* Params = [NSDictionary dictionaryWithObject:ParamValue.GetNSString() forKey:ParamKey.GetNSString()];
-	dispatch_sync(dispatch_get_main_queue(), ^{
+	dispatch_async(dispatch_get_main_queue(), ^{
 		[Flurry logEvent:Event.GetNSString() withParameters:Params timed:Timed];
 	});
 #endif
@@ -78,7 +78,7 @@ void UFlurryFunctions::FlurryLogEventWithParams(FString Event, TArray<FString> P
 
 #if PLATFORM_IOS
 	NSDictionary* Params = [NSDictionary dictionaryWithObjects:GetNSStringArray(ParamValues) forKeys:GetNSStringArray(ParamKeys)];
-	dispatch_sync(dispatch_get_main_queue(), ^{
+	dispatch_async(dispatch_get_main_queue(), ^{
 		[Flurry logEvent:Event.GetNSString() withParameters:Params timed:Timed];
 	});
 #endif
@@ -87,7 +87,7 @@ void UFlurryFunctions::FlurryLogEventWithParams(FString Event, TArray<FString> P
 void UFlurryFunctions::FlurryEndTimedEvent(FString Event)
 {
 #if PLATFORM_IOS
-	dispatch_sync(dispatch_get_main_queue(), ^{
+	dispatch_async(dispatch_get_main_queue(), ^{
 		[Flurry endTimedEvent:Event.GetNSString() withParameters:nil];
 	});
 #endif
@@ -97,7 +97,7 @@ void UFlurryFunctions::FlurryEndTimedEventWithParam(FString Event, FString Param
 {
 #if PLATFORM_IOS
 	NSDictionary* Params = [NSDictionary dictionaryWithObject:ParamValue.GetNSString() forKey:ParamKey.GetNSString()];
-	dispatch_sync(dispatch_get_main_queue(), ^{
+	dispatch_async(dispatch_get_main_queue(), ^{
 		[Flurry endTimedEvent:Event.GetNSString() withParameters:Params];
 	});
 #endif
@@ -110,7 +110,7 @@ void UFlurryFunctions::FlurryEndTimedEventWithParams(FString Event, TArray<FStri
 	
 #if PLATFORM_IOS
 	NSDictionary* Params = [NSDictionary dictionaryWithObjects:GetNSStringArray(ParamValues) forKeys:GetNSStringArray(ParamKeys)];
-	dispatch_sync(dispatch_get_main_queue(), ^{
+	dispatch_async(dispatch_get_main_queue(), ^{
 		[Flurry endTimedEvent:Event.GetNSString() withParameters:Params];
 	});
 #endif
@@ -119,7 +119,7 @@ void UFlurryFunctions::FlurryEndTimedEventWithParams(FString Event, TArray<FStri
 void UFlurryFunctions::FlurrySetDebugLogEnabled(bool Enabled)
 {
 #if PLATFORM_IOS
-	dispatch_sync(dispatch_get_main_queue(), ^{
+	dispatch_async(dispatch_get_main_queue(), ^{
 		[Flurry setDebugLogEnabled:Enabled];
 	});
 #endif
