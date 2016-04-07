@@ -9,11 +9,6 @@ namespace UnrealBuildTool.Rules
 {
 	public class Flurry : ModuleRules
 	{
-		private string ModulePath
-		{
-			get { return Path.GetDirectoryName( RulesCompiler.GetModuleFilename( this.GetType().Name ) ); }
-		}
-		
 		public Flurry(TargetInfo Target)
 		{
 			PublicIncludePaths.AddRange(
@@ -54,7 +49,7 @@ namespace UnrealBuildTool.Rules
 				);
 							
 			if (Target.Platform == UnrealTargetPlatform.IOS) {
-				var LibDir = Path.Combine(ModulePath,"..","..","lib","iOS");
+				var LibDir = Path.Combine(ModuleDirectory,"..","..","lib","iOS");
 				PrivateIncludePaths.Add(LibDir);
 
 				var Lib = Path.Combine(LibDir,"libFlurry_6.3.0.a");
